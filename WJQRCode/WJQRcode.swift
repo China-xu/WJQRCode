@@ -193,14 +193,11 @@ extension WJQRcode {
             self.present(picture, animated: true, completion: nil)
         }else {
             let alertController = UIAlertController.init(title: "提示", message: "设备不支持访问相册，请在设置->隐私->照片中进行设置！", preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "确定", style: .cancel) { (_) in
-                
-            }
+            let confirmAction = UIAlertAction(title: "确定", style: .cancel) { (_) in }
             let cancelAction = UIAlertAction.init(title: "去设置", style: .default, handler: { alertAction in
                 if WJCommon.canOpenSystemSetting(){
                     let settingUrl = NSURL(string: UIApplicationOpenSettingsURLString)!
-                    if UIApplication.shared.canOpenURL(settingUrl as URL)
-                    {
+                    if UIApplication.shared.canOpenURL(settingUrl as URL) {
                         UIApplication.shared.openURL(settingUrl as URL)
                     }
                 }
@@ -227,13 +224,17 @@ extension WJQRcode:AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutp
                     self.navigationController?.pushViewController(resultView, animated: true)
                     
                 }else {
-                    print("原生界面")
-                }
-              
-            })
+                    let alertController = UIAlertController.init(title: "扫码结果", message: resultStr, preferredStyle: .alert)
+                    let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
+                    alertController.addAction(confirmAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } })
 
         }else {
-            
+            let alertController = UIAlertController.init(title: "扫码结果", message: "没有扫描到结果", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
    
