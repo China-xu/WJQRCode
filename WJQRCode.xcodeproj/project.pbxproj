@@ -19,6 +19,7 @@
 		CCB9A1BE20AD604C0088D086 /* WJQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB9A1BB20AD604C0088D086 /* WJQRView.swift */; };
 		CCB9A1BF20AD604C0088D086 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB9A1BC20AD604C0088D086 /* WebViewController.swift */; };
 		CCB9A1C120AEA3540088D086 /* WJCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB9A1C020AEA3540088D086 /* WJCommon.swift */; };
+		CCBA4EDB20B1449B00985DEA /* AVCaptureComm.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBA4EDA20B1449B00985DEA /* AVCaptureComm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,9 @@
 		CCB9A1BB20AD604C0088D086 /* WJQRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJQRView.swift; sourceTree = "<group>"; };
 		CCB9A1BC20AD604C0088D086 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		CCB9A1C020AEA3540088D086 /* WJCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJCommon.swift; sourceTree = "<group>"; };
+		CCBA4ED820B1449B00985DEA /* WJQRCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WJQRCode-Bridging-Header.h"; sourceTree = "<group>"; };
+		CCBA4ED920B1449B00985DEA /* AVCaptureComm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVCaptureComm.h; sourceTree = "<group>"; };
+		CCBA4EDA20B1449B00985DEA /* AVCaptureComm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVCaptureComm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,9 @@
 				CCB9A19520AD5FE70088D086 /* LaunchScreen.storyboard */,
 				CCB9A19820AD5FE70088D086 /* Info.plist */,
 				CCB9A19020AD5FE60088D086 /* WJQRCode.xcdatamodeld */,
+				CCBA4ED920B1449B00985DEA /* AVCaptureComm.h */,
+				CCBA4EDA20B1449B00985DEA /* AVCaptureComm.m */,
+				CCBA4ED820B1449B00985DEA /* WJQRCode-Bridging-Header.h */,
 			);
 			path = WJQRCode;
 			sourceTree = "<group>";
@@ -208,6 +215,7 @@
 				TargetAttributes = {
 					CCB9A18520AD5FE60088D086 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					CCB9A19C20AD5FE70088D086 = {
 						CreatedOnToolsVersion = 9.3;
@@ -272,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCB9A1BE20AD604C0088D086 /* WJQRView.swift in Sources */,
+				CCBA4EDB20B1449B00985DEA /* AVCaptureComm.m in Sources */,
 				CCB9A1BF20AD604C0088D086 /* WebViewController.swift in Sources */,
 				CCB9A1BD20AD604C0088D086 /* WJQRcode.swift in Sources */,
 				CCB9A19220AD5FE60088D086 /* WJQRCode.xcdatamodeld in Sources */,
@@ -450,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7A9NU434F6;
 				INFOPLIST_FILE = WJQRCode/Info.plist;
@@ -460,6 +470,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sdd.WJQRCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WJQRCode/WJQRCode-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -469,6 +481,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7A9NU434F6;
 				INFOPLIST_FILE = WJQRCode/Info.plist;
@@ -479,6 +492,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sdd.WJQRCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WJQRCode/WJQRCode-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

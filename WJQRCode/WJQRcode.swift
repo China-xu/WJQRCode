@@ -213,28 +213,16 @@ extension WJQRcode:AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutp
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         playSound()
         if metadataObjects.count > 0 {
-            let metaData : AVMetadataMachineReadableCodeObject = metadataObjects.first as! AVMetadataMachineReadableCodeObject
-//            changeVideoScale(objc: metaData)
-            let whitespace = NSCharacterSet.whitespacesAndNewlines
-            let resultStr = metaData.stringValue?.trimmingCharacters(in: whitespace)
-            DispatchQueue.main.async(execute: {
-                if (resultStr?.hasPrefix("http"))! {
-                    let resultView = WebViewController()
-                    resultView.url = resultStr
-                    self.navigationController?.pushViewController(resultView, animated: true)
-                    
-                }else {
-                    let alertController = UIAlertController.init(title: "扫码结果", message: resultStr, preferredStyle: .alert)
-                    let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
-                    alertController.addAction(confirmAction)
-                    self.present(alertController, animated: true, completion: nil)
-                } })
+          
+            let metaData : AVMetadataMachineReadableCodeObject = self.preview.transformedMetadataObject(for: metadataObjects.last!) as! AVMetadataMachineReadableCodeObject
+            changeVideoScale(objc: metaData)
+          
 
         }else {
-            let alertController = UIAlertController.init(title: "扫码结果", message: "没有扫描到结果", preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
-            alertController.addAction(confirmAction)
-            self.present(alertController, animated: true, completion: nil)
+//            let alertController = UIAlertController.init(title: "扫码结果", message: "没有扫描到结果", preferredStyle: .alert)
+//            let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
+//            alertController.addAction(confirmAction)
+//            self.present(alertController, animated: true, completion: nil)
         }
     }
    
@@ -338,15 +326,16 @@ extension WJQRcode {
         if (recognizer.state == .began) {
             initialPinchZoom = device.videoZoomFactor
         }
+    }
+    func videoZoomFactor(scale:CGFloat){
         let error:NSError? = nil
         try? device.lockForConfiguration()
         if(!(error != nil)){
             var zoomFactor:CGFloat!
-            let scale:CGFloat = recognizer.scale
             if(scale < 1.0){
-                zoomFactor = initialPinchZoom - pow(device.activeFormat.videoMaxZoomFactor, 1-recognizer.scale)
+                zoomFactor = initialPinchZoom - pow(device.activeFormat.videoMaxZoomFactor, 1-scale)
             }else {
-                zoomFactor = initialPinchZoom + pow(device.activeFormat.videoMaxZoomFactor, (recognizer.scale - 1.0) / 2.0)
+                zoomFactor = initialPinchZoom + pow(device.activeFormat.videoMaxZoomFactor, (scale - 1.0) / 2.0)
             }
             zoomFactor = min(10.0, zoomFactor)
             zoomFactor = max(1.0, zoomFactor)
@@ -355,22 +344,28 @@ extension WJQRcode {
             
         }
     }
-
+    
     func changeVideoScale(objc:AVMetadataMachineReadableCodeObject) {
-        //        let array:NSArray = objc.corners as NSArray
-        //        var point = CGPoint.zero
-        //        var index:Int = 0
-        //        index += 1
-        //        let dict: CFDictionary = (array[index] as! CFDictionary)
-        //        CGPoint(dictionaryRepresentation: dict)
-        //        let point2 = CGPoint.zero
-        //        CGPoint(dictionaryRepresentation: array[2] as! CFDictionary)
-        //        let scace = 150/(point2.x - point.x)
-        //        if scace > 1 {
-        //            setVideoScale(scace)
-        //        }
-    }
-    private func setVideoScale(scale:CGFloat) {
+        let scale = AVCaptureComm.changeVideoScale(objc)
+        if scale > 1 {
+            videoZoomFactor(scale: scale)
+        }else {
+            self.scannerStop()
+            let whitespace = NSCharacterSet.whitespacesAndNewlines
+            let resultStr = objc.stringValue?.trimmingCharacters(in: whitespace)
+            DispatchQueue.main.async(execute: {
+                if (resultStr?.hasPrefix("http"))! {
+                    let resultView = WebViewController()
+                    resultView.url = resultStr
+                    self.navigationController?.pushViewController(resultView, animated: true)
+                    
+                }else {
+                    let alertController = UIAlertController.init(title: "扫码结果", message: resultStr, preferredStyle: .alert)
+                    let confirmAction = UIAlertAction(title: "确定", style: .default) { (_) in }
+                    alertController.addAction(confirmAction)
+                    self.present(alertController, animated: true, completion: nil)
+                } })
+        }
         
     }
 }
