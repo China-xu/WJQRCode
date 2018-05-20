@@ -273,7 +273,7 @@ extension WJQRcode:AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutp
 // MARK:- 手动对焦
 extension WJQRcode {
     private func playSound() {
-        guard let soundUrl = Bundle.main.url(forResource: "noticeMusic.caf", withExtension: nil)else {return}
+        guard let soundUrl = Bundle.main.url(forResource: "声音文件", withExtension: nil)else {return}
         var soundID:SystemSoundID = 2
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &soundID)
         AudioServicesPlaySystemSound(soundID)
