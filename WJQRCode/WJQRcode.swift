@@ -339,7 +339,10 @@ extension WJQRcode {
             }
             zoomFactor = min(10.0, zoomFactor)
             zoomFactor = max(1.0, zoomFactor)
-            device.videoZoomFactor = zoomFactor
+//            device.videoZoomFactor = zoomFactor
+            //这样平滑一些
+            device.ramp(toVideoZoomFactor: zoomFactor, withRate: 1)
+
             device.unlockForConfiguration()
             
         }
